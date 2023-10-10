@@ -1,0 +1,6 @@
+{
+    "uuid": "mic-status@vbsantos",
+    "name": "Microphone Status",
+    "description": "Shows if microphone is muted",
+    "author": "Vinícius Bohrer"
+}
