@@ -32,10 +32,10 @@ MicStatusApplet.prototype = {
     _setAppletState() {
         const isMuted = IsMicrophoneMuted();
         if (isMuted) {
-            this.set_applet_icon_name("mic-ready");
+            this.set_applet_icon_name("mic-custom-off");
             this.set_applet_tooltip("Microphone Off");
         } else {
-            this.set_applet_icon_name("mic-on");
+            this.set_applet_icon_name("mic-custom-on");
             this.set_applet_tooltip("Microphone On");
         }
     },
