@@ -27,9 +27,10 @@ MicStatusApplet.prototype = {
     _init: function (orientation, panel_height, instance_id) {
         Applet.IconApplet.prototype._init.call(this, orientation, panel_height, instance_id);
         this._setAppletState();
+        this.timeout = Mainloop.timeout_add_seconds(1, Lang.bind(this, this._setAppletState));
     },
 
-    _setAppletState() {
+    _setAppletState: function () {
         const isMuted = IsMicrophoneMuted();
         if (isMuted) {
             this.set_applet_icon_name("mic-custom-off");
@@ -38,11 +39,20 @@ MicStatusApplet.prototype = {
             this.set_applet_icon_name("mic-custom-on");
             this.set_applet_tooltip("Microphone On");
         }
+
+        return true;
     },
 
     on_applet_clicked: function () {
         ToggleMicrophone();
         this._setAppletState();
+    },
+
+    on_applet_removed_from_panel: function () {
+        if (this.timeout) {
+            GLib.source_remove(this.timeout);
+            this.timeout = null;
+        }
     }
 };
 
